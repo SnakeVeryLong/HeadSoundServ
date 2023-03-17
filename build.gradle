@@ -2,7 +2,11 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.0.4'
 	id 'io.spring.dependency-management' version '1.1.0'
+
 }
+
+apply plugin: 'application'
+
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
@@ -10,15 +14,40 @@ sourceCompatibility = '17'
 
 repositories {
 	mavenCentral()
+	mavenLocal()
+	jcenter()
 }
+
+
+/*configurations.all {
+	resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+		if (details.requested.group == 'org.springframework') {
+			details.useVersion "5.0.1.RELEASE"
+		}
+	}
+}*/
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	runtimeOnly 'org.postgresql:postgresql'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc:3.0.4'
+	//implementation 'com.fasterxml.jackson.core:jackson-databind:2.8.9'
+	implementation 'io.vertx:vertx-core:3.5.3'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.0.4'
+	runtimeOnly 'org.postgresql:postgresql:42.5.4'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test:3.0.4'
+	//implementation 'org.springframework.boot:spring-boot-starter'
+	implementation platform('org.springframework.boot:spring-boot-dependencies:3.0.4')
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	//implementation 'org.springframework.boot:spring-boot-starter-security'
+	constraints {
+		implementation('com.fasterxml.jackson.core:jackson-databind:2.10.1') {
+			because 'versions below are vulnerable to CVE-2019-16942'
+		}
+	}
+	//developmentOnly("org.springframework.boot:spring-boot-devtools")
 }
 
-tasks.named('test') {
+
+
+tasks.named('test', Test) {
 	useJUnitPlatform()
 }
