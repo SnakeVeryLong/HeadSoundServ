@@ -2,7 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.0.4'
 	id 'io.spring.dependency-management' version '1.1.0'
-
+	id 'eclipse'
 }
 
 apply plugin: 'application'
@@ -28,6 +28,7 @@ repositories {
 }*/
 
 dependencies {
+	implementation 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.1.7.RELEASE'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc:3.0.4'
 	//implementation 'com.fasterxml.jackson.core:jackson-databind:2.8.9'
 	implementation 'io.vertx:vertx-core:3.5.3'
@@ -37,7 +38,7 @@ dependencies {
 	//implementation 'org.springframework.boot:spring-boot-starter'
 	implementation platform('org.springframework.boot:spring-boot-dependencies:3.0.4')
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	//implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 	constraints {
 		implementation('com.fasterxml.jackson.core:jackson-databind:2.10.1') {
 			because 'versions below are vulnerable to CVE-2019-16942'
